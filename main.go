@@ -31,6 +31,6 @@ func main() {
 		printASCIIArt()
 		fmt.Printf("Version:\t%s\n", version)
 		fmt.Printf("Build time:\t%s\n", buildTime)
-		os.Exit(1)
+		os.Exit(0)
 	}
 }

@@ -11,5 +11,17 @@ linker_flags = '-s -X main.buildTime=${current_time} -X main.version=${git_hash}
 .PHONY:
 build:
 	@echo "Building binaries..."
-	go build -ldflags=${linker_flags} -o=./bin/binver ./main.go
-	GOOS=linux GOARCH=amd64 go build -ldflags=${linker_flags} -o=./bin/linux_amd64/binver ./main.go
+	@go build -ldflags=${linker_flags} -o=./bin/binver ./main.go
+	@GOOS=linux GOARCH=amd64 go build -ldflags=${linker_flags} -o=./bin/linux_amd64/binver ./main.go
+	@echo "Done!"
+
+# Build docker image
+.PHONY:
+docker:
+	@echo "Building docker image..."
+	@docker build \
+		-t binver:$(git_hash) \
+		--build-arg BUILD_VERSION=$(git_hash) \
+		--build-arg BUILD_DATE=$(current_time) \
+		.
+	@echo "Done!"
