@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"flag"
 	"fmt"
 	"os"
@@ -13,14 +14,8 @@ var (
 	version   string
 )
 
-const binverFigletStr = `
-_     _                     
-| |__ (_)_ ____   _____ _ __ 
-| '_ \| | '_ \ \ / / _ \ '__|
-| |_) | | | | \ V /  __/ |   
-|_.__/|_|_| |_|\_/ \___|_|   
-                             
-`
+//go:embed figlet.txt
+var binverFigletStr string
 
 func printASCIIArt() {
 	binverLogo := aec.LightGreenF.Apply(binverFigletStr)
@@ -36,6 +31,6 @@ func main() {
 		printASCIIArt()
 		fmt.Printf("Version:\t%s\n", version)
 		fmt.Printf("Build time:\t%s\n", buildTime)
-		os.Exit(0)
+		os.Exit(1)
 	}
 }
